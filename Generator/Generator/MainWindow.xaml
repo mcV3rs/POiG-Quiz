@@ -1,0 +1,106 @@
+﻿<Window x:Class="Generator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Generator"
+        mc:Ignorable="d"
+        Title="Generator" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="4">
+            <TextBox DockPanel.Dock="Top" FontSize="18" Text="Nazwa quizu" Margin="5" />
+
+            <ListBox Margin="5">
+                <ListBoxItem>Pytanie 1</ListBoxItem>
+                <ListBoxItem>Pytanie 2</ListBoxItem>
+                <ListBoxItem>Pytanie 3</ListBoxItem>
+                <ListBoxItem>Pytanie 4</ListBoxItem>
+                <ListBoxItem>Pytanie 4</ListBoxItem>
+
+                <ListBoxItem Foreground="MediumBlue">Dodaj pytanie</ListBoxItem>
+            </ListBox>
+        </DockPanel>
+
+        <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+            <Label DockPanel.Dock="Top" FontSize="18" Content="Treść Pytania" />
+
+            <TextBox Margin="5,8,5,5" />
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="5" Content="Usuń pytanie" />
+
+                <Button Grid.Column="1" Margin="5" Content="Zapisz quiz" />
+
+                <Button Grid.Column="2" Margin="5" Content="Wyjdź do menu" />
+
+            </Grid>
+
+            
+
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="1">
+
+            <Label DockPanel.Dock="Top" Grid.Column="0" FontSize="18" Content="Odpowiedź A" />
+
+            <CheckBox Margin="5,0,0,0" DockPanel.Dock="Top" Grid.Column="1" Content="Poprawna?" />
+
+            <TextBox Margin="5"/>
+            
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="2">
+
+            <Label DockPanel.Dock="Top" Grid.Column="0" FontSize="18" Content="Odpowiedź B" />
+
+            <CheckBox Margin="5,0,0,0" DockPanel.Dock="Top" Grid.Column="1" Content="Poprawna?" />
+
+            <TextBox Margin="5"/>
+
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.Column="1">
+
+            <Label DockPanel.Dock="Top" Grid.Column="0" FontSize="18" Content="Odpowiedź C" />
+
+            <CheckBox Margin="5,0,0,0" DockPanel.Dock="Top" Grid.Column="1" Content="Poprawna?" />
+
+            <TextBox Margin="5"/>
+
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.Column="2">
+
+            <Label DockPanel.Dock="Top" Grid.Column="0" FontSize="18" Content="Odpowiedź D" />
+
+            <CheckBox Margin="5,0,0,0" DockPanel.Dock="Top" Grid.Column="1" Content="Poprawna?" />
+
+            <TextBox Margin="5"/>
+
+        </DockPanel>
+
+    </Grid>
+</Window>
