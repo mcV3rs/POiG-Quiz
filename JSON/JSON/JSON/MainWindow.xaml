@@ -1,0 +1,71 @@
+﻿<Window x:Class="JSON.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSON"
+        mc:Ignorable="d"
+        Title="JSON" Height="450" Width="800">
+
+    <Window.Resources>
+        <DataTemplate x:Key="question">
+            <Border Name="border" Padding="5" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Padding="0,0,5,0" Text="ID:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=ID}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Padding="0,0,5,0" Text="Question:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Question}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Padding="0,0,5,0" Text="Answer_A:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Answer_A}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Padding="0,0,5,0" Text="Answer_B:"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Answer_B}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Padding="0,0,5,0" Text="Answer_C:"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Answer_C}"/>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Padding="0,0,5,0" Text="Answer_D:"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Answer_D}"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Padding="0,0,5,0" Text="Correct:"/>
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=Correct}"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0">
+            <Label DockPanel.Dock="Top" Content="Zapis" FontSize="24" />
+
+        </DockPanel>
+
+        <DockPanel Grid.Column="1">
+            <Label DockPanel.Dock="Top" Content="Odczyt" FontSize="24" />
+
+            <ListBox ItemsSource="{Binding}" ItemTemplate="{StaticResource question}" HorizontalContentAlignment="Stretch" IsSynchronizedWithCurrentItem="True" Margin="5, 0, 5, 5" x:Name="question_ListBox" />
+        </DockPanel>
+    </Grid>
+</Window>
