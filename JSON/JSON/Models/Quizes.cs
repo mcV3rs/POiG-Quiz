@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz.Models
+namespace Quizes.Models
 {
-    internal class quiz
+    internal class quizes
     {
         public List<Quiz> Quiz { get; set; }
     }

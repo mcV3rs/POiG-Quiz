@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Newtonsoft.Json;
-using Quiz.Models;
+using Quizes.Models;
 
 namespace JSON
 {
@@ -36,7 +36,7 @@ namespace JSON
             {
                 string json = System.IO.File.ReadAllText(@"quiz1.json");
 
-                this.question_ListBox.ItemsSource = JsonConvert.DeserializeObject<List<quiz>>(json);
+                this.question_ListBox.ItemsSource = JsonConvert.DeserializeObject<List<Quiz>>(json);
             }
             catch (Exception ex)
             {
