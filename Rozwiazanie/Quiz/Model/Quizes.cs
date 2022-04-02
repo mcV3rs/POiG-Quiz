@@ -9,10 +9,10 @@ namespace Quiz.Model
     
          internal class quizes
         {
-            public List<Quize> Quiz { get; set; }
+            public List<QuizeModel> Quiz { get; set; }
         }
 
-        public class Quize
+        public class QuizeModel
         {
             public int ID { get; set; }
 

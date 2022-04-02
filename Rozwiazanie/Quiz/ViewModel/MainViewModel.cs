@@ -15,7 +15,7 @@ namespace Quiz.ViewModel
     class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private Model.Quize model = new Model.Quize();
+        private Model.QuizeModel model = new Model.QuizeModel();
         private static bool isRun = false;
         private static bool isRunAnswers = false;
         private static Timer timer;

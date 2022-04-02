@@ -25,6 +25,14 @@ namespace Quizes.Models
 
         public string Answer_D { get; set; }
 
-        public int Correct { get; set; }
+        public int Correct_A { get; set; }
+
+        public int Correct_B { get; set; }
+
+        public int Correct_C { get; set; }
+
+        public int Correct_D { get; set; }
+
+        public int Count { get; set; }
     }
 }
