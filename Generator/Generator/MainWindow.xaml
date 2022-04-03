@@ -27,9 +27,9 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="4">
-            <TextBox DockPanel.Dock="Top" FontSize="18" Text="Nazwa quizu" Margin="5" />
+            <Label DockPanel.Dock="Top" FontSize="18" Content="QuizGenerator, v1" Margin="0" />
 
-            <ListBox Margin="5" ItemsSource="{Binding QuestionsCount}" ItemStringFormat="Pytanie {0}" SelectedIndex="{Binding QuestionId, Mode=TwoWay}" />
+            <ListBox Margin="5,8,5,5" ItemsSource="{Binding QuestionsCount}" ItemStringFormat="Pytanie {0}" SelectedIndex="{Binding QuestionId, Mode=TwoWay}" />
         </DockPanel>
 
         <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
@@ -47,15 +47,20 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Margin="5" Content="Usuń pytanie" Command="{Binding DelButton}" />
+                <Button Grid.Column="0" Margin="5" Content="Nowy quiz"
+                   IsEnabled="False" />
                 
-                <Button Grid.Column="1" Margin="5" Content="Dodaj pytanie" Command="{Binding AddButton}" />
+                <Button Grid.Column="1" Margin="5" Content="Otwórz quiz" 
+                   IsEnabled="False" />
 
                 <Button Grid.Column="2" Margin="5" Content="Zapisz quiz" Command="{Binding SaveButton}" />
 
-                <Button Grid.Column="3" Margin="5" Content="Wyjdź do menu" />
+                <Button Grid.Column="3" Margin="5" Content="Usuń pytanie" Command="{Binding DelButton}" />
+
+                <Button Grid.Column="4" Margin="5" Content="Dodaj pytanie" Command="{Binding AddButton}" />
 
             </Grid>
 

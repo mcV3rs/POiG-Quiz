@@ -17,33 +17,45 @@ namespace Generator.Model
     {
         public Quiz()
         {
+            Random rnd = new Random();
+
             Question = "";
             Answer_A = "";
             Answer_B = "";
             Answer_C = "";
-            Correct_A = false;
-            Correct_B = false;
-            Correct_C = false;
-            Correct_D = false;
+            Answer_D = "";
+            Correct_A = rnd.Next(int.MaxValue / 2) * 2 + 1;
+            Correct_B = rnd.Next(int.MaxValue / 2) * 2 + 1;
+            Correct_C = rnd.Next(int.MaxValue / 2) * 2 + 1;
+            Correct_D = rnd.Next(int.MaxValue / 2) * 2 + 1;
         }
 
+        [JsonEncrypt]
         public string Question { get; set; }
 
+        [JsonEncrypt]
         public string Answer_A { get; set; }
 
+        [JsonEncrypt]
         public string Answer_B { get; set; }
 
+        [JsonEncrypt]
         public string Answer_C { get; set; }
 
+        [JsonEncrypt]
         public string Answer_D { get; set; }
 
-        public bool Correct_A { get; set; }
+        [JsonEncrypt]
+        public int Correct_A { get; set; }
 
-        public bool Correct_B { get; set; }
+        [JsonEncrypt]
+        public int Correct_B { get; set; }
 
-        public bool Correct_C { get; set; }
+        [JsonEncrypt]
+        public int Correct_C { get; set; }
 
-        public bool Correct_D { get; set; }
+        [JsonEncrypt]
+        public int Correct_D { get; set; }
     }
 
 }

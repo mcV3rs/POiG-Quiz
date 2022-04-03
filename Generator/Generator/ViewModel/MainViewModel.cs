@@ -7,7 +7,10 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Timers;
 
+using System.Security.Cryptography;
+
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Generator.ViewModel
 {
@@ -16,32 +19,56 @@ namespace Generator.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Lista Pytań
-        private List<Model.Quiz> quizList = MainViewModel.deserialized();
+        private List<Model.Quiz> quizList;
 
-        // Aktualny numer pytania
+        // Aktualny ID pytania
         private int questionId = 0;
 
+        public MainViewModel()
+        {
+            if (!File.Exists(@"quiz1.json") || new FileInfo(@"quiz1.json").Length == 0)
+            {
+                List<Model.Quiz> empty = new List<Model.Quiz>();
+                empty.Add(new Model.Quiz());
+
+                var jsonOutput = JsonConvert.SerializeObject(empty, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ContractResolver = new EncryptedStringPropertyResolver("#my*S3cr3t")
+                });
+
+                File.WriteAllText(@"quiz1.json", jsonOutput);
+            }
+
+            quizList = deserialized();
+        }
+
+        // Zwrócenie listy numerów pytań
         public List<int> QuestionsCount
         {
             get => Enumerable.Range(1, quizList.Count).ToList(); 
         }
 
+        // Zarządzanie zmianą ID pytania
         public int QuestionId
         {
             get => questionId;
             set
             {
                 questionId = value;
+
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionId)));
 
+                // Wywołanie zmiany numeru pytania i treści pytania
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerId)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Question)));
 
+                // Wywołanie zmiany treści odpowiedzi
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerA)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerB)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerC)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerD)));
 
+                // Wywołanie zmiany poprawności odpowiedzi
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectA)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectB)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectC)));
@@ -49,11 +76,13 @@ namespace Generator.ViewModel
             }
         }
 
+        // Zarządzanie numerem pytania 
         public int AnswerId 
         {
             get => questionId + 1;
         }
 
+        // Zarządzanie treścią pytania
         public string Question
         {
             get => quizList[questionId].Question;
@@ -64,6 +93,7 @@ namespace Generator.ViewModel
             }
         }
 
+        // Zarządzanie odpowiedziami A - B
         public string AnswerA
         {
             get => quizList[questionId].Answer_A;
@@ -104,46 +134,57 @@ namespace Generator.ViewModel
             }
         }
 
+        // Zarządzanie poprawnością A - B
         public bool CorrectA
         {
-            get => quizList[questionId].Correct_A;
+            get => quizList[questionId].Correct_A % 2 == 0 ? true : false;
             set
             {
-                quizList[questionId].Correct_A = value;
+                Random rnd = new Random();
+
+                quizList[questionId].Correct_A = value ? rnd.Next(int.MaxValue / 2) * 2 : rnd.Next(int.MaxValue / 2) * 2 + 1;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectA)));
             }
         }
 
         public bool CorrectB
         {
-            get => quizList[questionId].Correct_B;
+            get => quizList[questionId].Correct_B % 2 == 0 ? true : false;
             set
             {
-                quizList[questionId].Correct_B = value;
+                Random rnd = new Random();
+
+                quizList[questionId].Correct_B = value ? rnd.Next(int.MaxValue / 2) * 2 : rnd.Next(int.MaxValue / 2) * 2 + 1;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectB)));
             }
         }
 
         public bool CorrectC
         {
-            get => quizList[questionId].Correct_C;
+            get => quizList[questionId].Correct_C % 2 == 0 ? true : false;
             set
             {
-                quizList[questionId].Correct_C = value;
+                Random rnd = new Random();
+
+                quizList[questionId].Correct_C = value ? rnd.Next(int.MaxValue / 2) * 2 : rnd.Next(int.MaxValue / 2) * 2 + 1;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectC)));
             }
         }
 
         public bool CorrectD
         {
-            get => quizList[questionId].Correct_D;
+            get => quizList[questionId].Correct_D % 2 == 0 ? true : false;
             set
             {
-                quizList[questionId].Correct_D = value;
+                Random rnd = new Random();
+
+                quizList[questionId].Correct_C = value ? rnd.Next(int.MaxValue / 2) * 2 : rnd.Next(int.MaxValue / 2) * 2 + 1;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectD)));
             }
         }
 
+
+        // Zapisywanie stanu quizu
         private ICommand saveButton;
         public ICommand SaveButton
         {
@@ -158,6 +199,7 @@ namespace Generator.ViewModel
             }
         }
 
+        // Usuwanie pytania
         private ICommand delButton;
         public ICommand DelButton
         {
@@ -172,6 +214,7 @@ namespace Generator.ViewModel
             }
         }
 
+        // Dodawanie pustego pytania
         private ICommand addButton;
         public ICommand AddButton
         {
@@ -186,24 +229,43 @@ namespace Generator.ViewModel
             }
         }
 
+        // Deserializacja danych z pliku JSON
         public static List<Model.Quiz> deserialized()
         {
-            return JsonConvert.DeserializeObject<List<Model.Quiz>>(System.IO.File.ReadAllText(@"quiz1.json"));
+            return JsonConvert.DeserializeObject<List<Model.Quiz>>(System.IO.File.ReadAllText(@"quiz1.json"), new JsonSerializerSettings
+            {
+                ContractResolver = new EncryptedStringPropertyResolver("#my*S3cr3t")
+            });
         }
 
+        // Serializacja danych do pliku JSON
         private void serialized()
         {
-            System.IO.File.WriteAllText(@"out.json", JsonConvert.SerializeObject(quizList));
+            var jsonOutput = JsonConvert.SerializeObject(quizList, Formatting.Indented, new JsonSerializerSettings
+            {
+                ContractResolver = new EncryptedStringPropertyResolver("#my*S3cr3t")
+            });
+
+            System.IO.File.WriteAllText(@"out.json", jsonOutput);
         }
 
+        // Obsługa usuwania pytania
         private void del(int index)
         {
+            if(quizList.Count == 1)
+            {
+                Model.Quiz quiz = new Model.Quiz();
+                quizList.Add(quiz);
+            }
+            
             quizList.RemoveAt(index);
-            questionId = 0;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionId)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionsCount)));
+
+            questionId = index == 0 ? 0 : index - 1;
+
+            globalChanged();
         }
 
+        // Obsługa dodawania pytania
         private void add()
         {
             Model.Quiz quiz = new Model.Quiz();
@@ -211,7 +273,32 @@ namespace Generator.ViewModel
             quizList.Add(quiz);
             questionId = quizList.Count - 1;
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionsCount)));
+            globalChanged();
+        }
+
+        // Globalna emisja zmiany własności
+        private void globalChanged()
+        {
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionId)));
+
+            // Wywołanie zmiany numeru pytania i treści pytania
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerId)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(Question)));
+
+            // Wywołanie zmiany treści odpowiedzi
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerA)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerB)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerC)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerD)));
+
+            // Wywołanie zmiany poprawności odpowiedzi
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectA)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectB)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectC)));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectD)));
+
+            // Wywołanie zmiany listy pytań
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionsCount)));
         }
     }
 }
