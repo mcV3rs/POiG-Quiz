@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using Quiz.Model;
 using System;
 using System.Collections.Generic;
@@ -25,27 +25,8 @@ namespace Quiz
         public MainWindow()
         {
             InitializeComponent();
-            deserialized();
+           
         }
-        public void deserialized()
-        {
-            try
-            {
-                string json = System.IO.File.ReadAllText(@"pytania.json");
-
-                 JsonConvert.DeserializeObject<List<Quize>>(json);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            string liczba = button.Content.ToString();
-            if(liczba == MainViewModel.)
-        }
+        
     }
 }

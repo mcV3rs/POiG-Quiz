@@ -1,0 +1,46 @@
+[
+  {
+    "Question": "Lorem ipsum dolor sit amet.",
+    "AnswerA": "Lorem",
+    "AnswerB": "Kot",
+    "AnswerC": "Pies",
+    "AnswerD": "Ipsum",
+    "CorrectA": true,
+    "CorrectB": false,
+    "CorrectC": false,
+    "CorrectD": false
+  },
+  {
+    "Question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "AnswerA": "Ipsum",
+    "AnswerB": "IPSUM",
+    "AnswerC": "ipsum",
+    "AnswerD": "dolor",
+    "CorrectA": true,
+    "CorrectB": true,
+    "CorrectC": false,
+    "CorrectD": false
+  },
+  {
+    "Question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at mauris odio.",
+    "AnswerA": "Dolor",
+    "AnswerB": "DOLOR",
+    "AnswerC": "dolor",
+    "AnswerD": "sit",
+    "CorrectA": true,
+    "CorrectB": true,
+    "CorrectC": true,
+    "CorrectD": false
+  },
+  {
+    "Question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at mauris odio. Vestibulum ullamcorper lacinia lectus, non bibendum nisi laoreet vitae.",
+    "AnswerA": "Sit",
+    "AnswerB": "SIt",
+    "AnswerC": "SIT",
+    "AnswerD": "amet",
+    "CorrectA": true,
+    "CorrectB": true,
+    "CorrectC": true,
+    "CorrectD": true
+  }
+]

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Quiz"
         xmlns:vm="clr-namespace:Quiz.ViewModel"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800">
+        Title="Quiz" Height="450" Width="800">
 
     <Window.DataContext>
         <vm:MainViewModel x:Name="MainViewModel"/>
@@ -22,52 +22,60 @@
     <Grid>
         <Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="241*"/>
-            <ColumnDefinition Width="155*"/>
-            <ColumnDefinition Width="317*"/>
-            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="50*"/>
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-
-        <TextBlock TextAlignment="Center" 
+        <TextBlock TextAlignment="Right"
                    VerticalAlignment="Center"
                    Grid.Row="0"
                    Grid.Column="0"
-                   Grid.ColumnSpan="3"
-                   FontSize ="40"
-                   Margin="5" Height="150" >
-            <InlineUIContainer>
-                <TextBlock  Text="Czas: " Height ="23" FontSize="15" TextAlignment="Center" 
-                   VerticalAlignment="Center"/>
-            </InlineUIContainer>
-            <InlineUIContainer>
-                <TextBlock Text="{Binding Time, Mode=OneWay}" Height ="23" Width="40" FontSize="15" TextAlignment="Center" 
-                   VerticalAlignment="Center" />
-            </InlineUIContainer></TextBlock>
-        <Button Content="Dalej" 
-                Grid.Row="0" 
+                   FontSize ="15"
+                   Height="30"
+                   Text="Czas: " />
+        <TextBlock TextAlignment="Left"
+                   VerticalAlignment="Center"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize ="15"
+                   Height="30"
+                   Text="{Binding Increment, Mode=OneWay}" />
+        <TextBlock TextAlignment="Justify" 
+                   VerticalAlignment="Center"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   FontSize ="25"
+                   Margin="5" Height="150"
+                   TextWrapping="Wrap"
+                   Text="{Binding Question, Mode=OneWay}">
+        </TextBlock>
+        <Button Content="Dalej"
+                Grid.Row="0"
+                Grid.RowSpan="2" 
                 Grid.Column="3" 
-                 Command="{Binding Run}" />
+                Command="{Binding Next}" />
         <Button Content="Rozpocznij" 
-                Grid.Row="1" 
-                Grid.Column="0" 
-                Command="{Binding Run}" Grid.ColumnSpan="2"/>
+                Grid.Row="2" 
+                Grid.Column="0"
+                Command="{Binding Run}"/>
         <Button Content="Zakończ"  
-                Grid.Row="1" 
-                Grid.Column="2" 
+                Grid.Row="2" 
+                Grid.Column="1" 
                 Grid.ColumnSpan="2"
                 Command="{Binding Stop}"/>
-        <Button Content="{Binding AnswerA, Mode=OneWay}"  Grid.Row="2" Grid.Column="0"  Background = "White" Grid.ColumnSpan="2" Command="{Binding Stop}" Click="Button_Click" x:Name="A"/>
-        <Button Content="{Binding AnswerB, Mode=OneWay}"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"  Background = "White" Command="{Binding Stop}"/>
-        <Button Content="{Binding AnswerC, Mode=OneWay}"  Grid.Row="3" Grid.Column="0"  Background = "White" Grid.ColumnSpan="2" Command="{Binding Stop}"/>
-        <Button Content="{Binding AnswerD, Mode=OneWay}"  Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"  Background = "White" Command="{Binding Stop}"/>
-
+        <Button Content="{Binding AnswerA, Mode=OneWay}"  Grid.Row="3" Grid.Column="0"   Background = "White"  Command="{Binding AnswerAA}" />
+        <Button Content="{Binding AnswerB, Mode=OneWay}"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"  Background = "White" Command="{Binding AnswerBB}"/>
+        <Button Content="{Binding AnswerC, Mode=OneWay}"  Grid.Row="4" Grid.Column="0"  Background = "White" Command="{Binding AnswerCC}"/>
+        <Button Content="{Binding AnswerD, Mode=OneWay}"  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"  Background = "White" Command="{Binding AnswerDD}"/>
 
     </Grid>
 </Window>
