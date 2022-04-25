@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
-using System.Timers;
-
-using System.Security.Cryptography;
 
 using Newtonsoft.Json;
 using System.IO;
@@ -28,8 +23,10 @@ namespace Generator.ViewModel
         {
             if (!File.Exists(@"quiz1.json") || new FileInfo(@"quiz1.json").Length == 0)
             {
-                List<Model.Quiz> empty = new List<Model.Quiz>();
-                empty.Add(new Model.Quiz());
+                List<Model.Quiz> empty = new List<Model.Quiz>
+                {
+                    new Model.Quiz()
+                };
 
                 var jsonOutput = JsonConvert.SerializeObject(empty, Formatting.Indented, new JsonSerializerSettings
                 {
@@ -178,11 +175,10 @@ namespace Generator.ViewModel
             {
                 Random rnd = new Random();
 
-                quizList[questionId].Correct_C = value ? rnd.Next(int.MaxValue / 2) * 2 : rnd.Next(int.MaxValue / 2) * 2 + 1;
+                quizList[questionId].Correct_D = value ? rnd.Next(int.MaxValue / 2) * 2 : rnd.Next(int.MaxValue / 2) * 2 + 1;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CorrectD)));
             }
         }
-
 
         // Zapisywanie stanu quizu
         private ICommand saveButton;
@@ -232,7 +228,7 @@ namespace Generator.ViewModel
         // Deserializacja danych z pliku JSON
         public static List<Model.Quiz> deserialized()
         {
-            return JsonConvert.DeserializeObject<List<Model.Quiz>>(System.IO.File.ReadAllText(@"quiz1.json"), new JsonSerializerSettings
+            return JsonConvert.DeserializeObject<List<Model.Quiz>>(File.ReadAllText(@"quiz1.json"), new JsonSerializerSettings
             {
                 ContractResolver = new EncryptedStringPropertyResolver("#my*S3cr3t")
             });
@@ -246,7 +242,7 @@ namespace Generator.ViewModel
                 ContractResolver = new EncryptedStringPropertyResolver("#my*S3cr3t")
             });
 
-            System.IO.File.WriteAllText(@"out.json", jsonOutput);
+            File.WriteAllText(@"quiz1.json", jsonOutput);
         }
 
         // Obsługa usuwania pytania
